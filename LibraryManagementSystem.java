@@ -12,18 +12,18 @@ public class LibraryManagementSystem {
                            "author VARCHAR(100) NOT NULL," +
                            "published_year INT NOT NULL," +
                            "price DECIMAL(10, 2) NOT NULL)";
-            PreparedStatement pst = con.prepareStatement(query);// It allows you to define a SQL query with placeholders for parameters, which can be filled in later.
+            PreparedStatement pst = con.prepareStatement(query);
             pst.executeUpdate();
             System.out.println("Books table created or already exists.");
         } catch (SQLException e) {
-            e.printStackTrace();// part of the Throwable class, which is the superclass of all errors and exceptions in Java. 
+            e.printStackTrace();
         }
     }
 
     static void insertBook(String dbName, String title, String author, int publishedYear, double price) {
         try (Connection con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/" + dbName, "postgres", "SAM2005")) {
             String query = "INSERT INTO books (title, author, published_year, price) VALUES (?, ?, ?, ?)";
-            PreparedStatement pst = con.prepareStatement(query);//The query can contain placeholders (usually ?).
+            PreparedStatement pst = con.prepareStatement(query);
             pst.setString(1, title);
             pst.setString(2, author);
             pst.setInt(3, publishedYear);
@@ -41,7 +41,7 @@ public class LibraryManagementSystem {
              PreparedStatement pstmt = con.prepareStatement(query);
              ResultSet rs = pstmt.executeQuery()) {
 
-            while (rs.next()) {//used to move the cursor to the next row.
+            while (rs.next()) {
                 System.out.println("Book ID: " + rs.getInt("id"));
                 System.out.println("Title: " + rs.getString("title"));
                 System.out.println("Author: " + rs.getString("author"));
@@ -64,7 +64,7 @@ public class LibraryManagementSystem {
             pstmt.setDouble(4, newPrice);
             pstmt.setInt(5, id);
             int updateRowCount = pstmt.executeUpdate();
-            System.out.println("Rows updated: " + updateRowCount);//referring to the executeUpdate() 
+            System.out.println("Rows updated: " + updateRowCount);
         } catch (SQLException e) {
             e.printStackTrace();
         }
